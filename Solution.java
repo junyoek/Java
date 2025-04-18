@@ -1,38 +1,37 @@
-package programersLV1;
+package programersLV1.PCCE기출문제9번이웃한칸;
 
-public class Solution {
-    public int solution(int[] wallet, int[] bill) {
+class Solution {
+    static int solution(String[][] board, int h, int w) {
         int answer = 0;
+        int count = 0;
+        int[] dh = {0, 1, -1, 0};
+        int[] dw = {1, 0, 0, -1};
 
-        while (true) {
-            int max_wallet = (wallet[0] > wallet[1]) ? wallet[0] : wallet[1];
-            int min_wallet = (wallet[0] < wallet[1]) ? wallet[0] : wallet[1];
-            int max_bill = (bill[0] > bill[1]) ? bill[0] : bill[1];
-            int min_bill = (bill[0] < bill[1]) ? bill[0] : bill[1];
+        for (int i = 0; i < 4; i++) {
+            int h_check = h + dh[i];
+            int w_check = w + dw[i];
 
-            if ((min_bill > min_wallet) || (max_bill > max_wallet)) {
-                if (bill[0] > bill[1]) {
-                    bill[0] = bill[0] / 2;
-                }else{
-                    bill[1] = bill[1]/2;
+            if ((0 <= w_check && w_check < board[0].length) && (0 <= h_check && h_check < board.length)) {
+                if (board[h][w].equals(board[h_check][w_check])) {
+                    count++;
                 }
-                answer++;
-            }else{
-                break;
             }
-
         }
 
+        answer = count;
         return answer;
     }
 
     public static void main(String[] args) {
-        int[] w = {50,50};
-        int[] b = {100,241};
+        String[][] board = {
+            {"blue", "red", "orange", "red"},
+            {"red", "red", "blue", "orange"},
+            {"blue", "orange", "red", "red"},
+            {"orange", "orange", "red", "blue"}
+        };
 
         Solution solution = new Solution();
-
-        int result = solution.solution(w,b);
+        int result = solution(board, 0, 1);
 
         System.out.println(result);
 
